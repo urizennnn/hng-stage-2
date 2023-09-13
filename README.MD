@@ -1,157 +1,303 @@
-API Documentation
-This documentation provides an overview of the Person API, a simple REST API built with Express.js, Mongoose, and MongoDB for CRUD operations on a "person" resource. This API allows you to create, read, update, and delete person records.
+# Person API
 
-Table of Contents
-API Documentation
-Table of Contents
-Introduction
-Getting Started
-Prerequisites
-Installation
-Running the API
-API Endpoints
-Create a Person
-Get a Person by ID
-Update a Person
-Delete a Person
-Request and Response Formats
-Sample Usage
-Create a Person
-Get a Person by ID
-Update a Person
-Delete a Person
-Introduction
-The Person API is designed to perform CRUD operations on a "person" resource. It provides endpoints for creating, retrieving, updating, and deleting person records in a MongoDB database. The API is built using Express.js and Mongoose, making it easy to use and extend.
+A simple RESTful API for managing peoples details such as name, age e.t.c.
 
-Getting Started
-Prerequisites
+## Table of Contents
+
+- [Person API](#person-api)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+    - [Endpoints](#endpoints)
+    - [Requests and Responses](#requests-and-responses)
+  - [UML Diagram](#uml-diagram)
+  - [Contribution](#contribution)
+    - [License](#license)
+
+## Getting Started
+
+### Prerequisites
+
 Before you begin, ensure you have met the following requirements:
 
-Node.js and npm installed on your machine.
-MongoDB installed and running locally, or you have a MongoDB connection URI.
-Installation
-Clone this repository to your local machine:
+- Node.js installed
+- MongoDB installed and running
+- Git (optional, for cloning the repository)
 
-git clone https://github.com/yourusername/person-api.git
-Navigate to the project directory:
+### Installation
 
-cd person-api
-Install the project dependencies:
+1. Clone the repository (if you haven't already):
 
-npm install
-Running the API
-Start the MongoDB server if not already running.
+   ```bash
+   git clone https://github.com/urizennnn/hng-stage-2.git
+   
+   ```
 
-Start the API by running:
+2. Install project dependencies:
 
-node app.js
-The API will be available at http://localhost:3000.
+   ```bash
+   npm install
 
-API Endpoints
-Create a Person
-URL: /api/persons
+   ```
 
-Method: POST
+3. Configure your MongoDB connection and your port in your .env file:
 
-Request Body:
+   ```bash
+   Port = 300
+   HOST = 'http://localhost'
+  MONGODB_URI = your mongo db connection string
+   
+   ```
 
-{
-  "name": "John Doe",
-}
-Response:
+4. starting your server
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c64",
-  "name": "John Doe",
-  "__v": 0
-}
-Get a Person by ID
-URL: /api/persons/:id
+   ```bash
+   run `npm run dev` // development server
+   run `npm start` // production server
+   ```
 
-Method: GET
+## Usage
 
-Response:
+### Endpoints
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c64",
-  "name": "John Doe",
-  "__v": 0
-}
-Update a Person
-URL: /api/persons/:id
+The API provides the following endpoints for managing persons:
 
-Method: PUT
+- POST /api/create: Create a new person.
 
-Request Body:
+- GET /api/:id: Retrieve details of a person by ID.
 
-{
-  "name": "Updated Name",
-}
-Response:
+- PUT /api/:id: Update details of an existing person by ID.
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c64",
-  "name": "Updated Name",
-  "__v": 0
-}
-Delete a Person
-URL: /api/persons/:id
-Method: DELETE
-Response: 204 No Content
-Request and Response Formats
-Request Format: Requests should be sent in JSON format.
-Response Format: Responses are in JSON format.
-Sample Usage
-Here are some sample requests and responses for the Person API:
+- DELETE /api/:id: Remove a person by ID.
 
-Create a Person
-Request:
+- GET /api: Retrieve a list of all persons.
 
-POST /api/persons
-Content-Type: application/json
+### Requests and Responses
 
-{
-  "name": "Alice Johnson",
+1. Creating a Person:
+   - Request:
   
-}
-Response:
+    ```http
+    POST /api
+   
+    {
+    "name": "John Doe",
+    }
+   ```
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c65",
-  "name": "Alice Johnson",  
-  "__v": 0
-}
-Get a Person by ID
-Request:
+   - Response (201 Created):
 
-GET /api/persons/5fd5a4f1b2f317001c5c7c65
-Response:
+    ```json
+    {
+       
+       
+        "id": 1,
+        "name": "John Doe"
+    }
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c65",
-  "name": "Alice Johnson",
-  "__v": 0
-}
-Update a Person
-Request:
+    ```
 
-PUT /api/persons/5fd5a4f1b2f317001c5c7c65
-Content-Type: application/json
+    - Response (500 Bad Request):
 
-{
-  "name": "Updated Alice Johnson",
-}
-Response:
+    ```bash
+    {
+      
+        "message": "Internal Server Error"
+    }
 
-{
-  "_id": "5fd5a4f1b2f317001c5c7c65",
-  "name": "Updated Alice Johnson",
-  "__v": 0
-}
-Delete a Person
-Request:
+    or
 
-DELETE /api/persons/5fd5a4f1b2f317001c5c7c65
-Response:
+    {
+        "message": "null"
+    }
 
-204 No Content
+    ```
+
+2. Getting a Person by ID:
+   - Request:
+  
+    ```http
+    GET /api/user_id
+
+    e.g GET /api/1
+    ```
+
+    - Response (200 Ok):
+
+    ```json
+    {
+       
+        "person": {
+        "id": 1,
+        "name": "John Doe",
+       
+        }
+    }
+
+    ```
+
+    - Response (404 Not Found):
+
+    ```bash
+    {
+        "success":false,
+        "message": "Person not found"
+    }
+
+    ```
+
+3. Getting a List of All Persons
+   - Request:
+  
+    ```http
+    GET /api
+
+    e.g GET /api
+    ```
+
+    - Response (200 Ok):
+
+    ```json
+    {
+        
+        "user": [
+            {
+                "id": 1,
+                "name": "Samson Garfield"
+            },
+            {
+                "id": 2,
+                "name": "Roosevelt Harsher"
+            },
+            {
+                "id": 3,
+                "name": "Lady gaga"
+            }
+        ]
+    }
+
+    ```
+
+    - Response (404 Not Found):
+
+    ```json
+    {
+        "user":[]
+    }
+
+    ```
+
+4. Updating a Person by ID:
+   - Request:
+  
+   ```http
+    PUT /api/user_id
+
+    e.g PUT /api/1
+    {
+        "name": "Updated Name",
+       
+    }
+    ```
+
+   - Response (200 OK)
+
+    ```json
+    {
+        "user": {
+            "id": 1,
+            "name": "Updated Name",
+            
+        }
+    }
+
+    ```
+
+   - Response (404 Not Found)
+
+    ```json
+    {
+        "message":"Person not found"
+    }
+
+    ```
+
+5. Deleting a Person by ID:
+   - Request:
+
+    ```http
+    DELETE /api/user_id
+
+    e.g. DELETE /api/1
+    ```
+
+   - Response (200 OK)
+
+    ```json
+    {
+       
+    }
+    ```
+
+   - Response (404 Not Found)
+
+    ```json
+    {
+        "success": false,
+        "message": "Person not found"
+    }
+
+    ```
+
+
+
+
+## UML Diagram
+  +------------------+              +-----------------------+
+    |      Client      |              |      Express App      |
+    +------------------+              +-----------------------+
+           |                               |
+           | HTTP Requests                 |
+           |                               |
+           V                               V
+    +------------------+              +-----------------------+
+    |      Routes      |              |   Controllers (CRUD)  |
+    +------------------+              +-----------------------+
+           |                               |
+           | Route Handling                |
+           |                               |
+           V                               V
+    +------------------+              +-----------------------+
+    |      Models      |              |      Database (MongoDB)|
+    +------------------+              +-----------------------+
+           |                               |
+           | Data Manipulation             |
+           |                               |
+           V                               V
+    +------------------+              +-----------------------+
+    |   Person Model   |              |  Person Collection    |
+    +------------------+              +-----------------------+
+           |                               |
+           | Data Structure                |
+           |                               |
+           V                               V
+    +------------------+              +-----------------------+
+    |     Attributes   |              |    Database Records   |
+    +------------------+              +-----------------------+
+           |                               |
+           |                               |
+           |                               |
+           V                               V
+    +------------------+              +-----------------------+
+    |      name        |              |        name           |
+    |                  |              |                       |
+    +------------------+              +-----------------------+
+## Contribution
+
+Contributions are welcome! Please follow the [contribution guidelines](#contribution)
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](#license) file for details.

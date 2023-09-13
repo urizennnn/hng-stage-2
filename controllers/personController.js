@@ -5,6 +5,12 @@ const Person = require('../models/personModel');
 exports.createPerson = async (req, res) => {
     try {
         const { name } = req.body;
+        const existing = await Person.findOne({ name }); 
+
+        if (existing) {
+            return res.status(400).json({ msg: 'User already exists' });
+        }
+
         const newPerson = await Person.create({ name });
         res.status(201).json(newPerson);
     } catch (err) {
@@ -12,6 +18,7 @@ exports.createPerson = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+
 
 // READ - Fetch details of a person by ID
 exports.getPersonById = async (req, res) => {
@@ -28,7 +35,14 @@ exports.getPersonById = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
+exports.getAll = async(req,res)=>{
+    try{
+        const user = await Person.find({})
+        res.status(200).json({user})
+    }catch (err){
+res.status(404).json({err:"Error"})
+    }
+}
 // UPDATE - Modify details of an existing person by ID
 exports.updatePerson = async (req, res) => {
     try {
