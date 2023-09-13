@@ -1,0 +1,20 @@
+Class Diagram:
++------------------+       +-------------+        +-------------+
+|    Controller   |------>|    Service  |------->|    Database |
+|------------------|       |-------------|        |-------------|
+|                |       | +addPerson()|        |             |
+| +createPerson()|       | +getPerson()|        |             |
+| +getPerson()   |       | +updatePerson|        |   +User    |
+| +updatePerson()|       | +deletePerson|        |-------------|
+| +deletePerson()|       |             |
++------------------+       +-------------+
+
+Entity-Relationship (ER) Diagram
+   +------------------+
+   |       User       |
+   +------------------+
+   | name           |
+   | id             |
+   | createdAt             |
+   | updatedAt             |
+   +------------------+
