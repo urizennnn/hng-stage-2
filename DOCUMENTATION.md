@@ -25,7 +25,7 @@ Welcome to the Person CRUD API documentation. This API allows you to perform CRU
 5. Navigate to `http://localhost:3000/api` in your browser.
 
 ## Endpoint Details
-- for remote end point please replace  `http://localhost:1234/api` with ``
+- for remote end point please replace  `http://localhost:1234/api` with `https://hng-stage-2-w19g.onrender.com`
 ### Create a Person
 
 - **Endpoint:** `POST /api`
