@@ -10,7 +10,9 @@ exports.createPerson = async (req, res) => {
         if (existing) {
             return res.status(400).json({ msg: 'User already exists' });
         }
-
+        if(typeof name !== 'string'){
+            return res.status(404).json({msg:'Name must be a string'})
+        }
         const newPerson = await Person.create({ name });
         res.status(201).json(newPerson);
     } catch (err) {

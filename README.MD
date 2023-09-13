@@ -80,7 +80,7 @@ The API provides the following endpoints for managing persons:
    - Request:
   
     ```http
-    POST /api
+    POST /api/create
    
     {
     "name": "John Doe",
@@ -110,7 +110,7 @@ The API provides the following endpoints for managing persons:
     or
 
     {
-        "message": "null"
+        "message": "Name must be a string"
     }
 
     ```

@@ -11,7 +11,7 @@ const personSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true, // Make the "name" field required
-        validate: [nameValidator, 'Name can only contain letters and spaces'],
+        
     }
 });
 
